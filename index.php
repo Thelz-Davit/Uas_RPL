@@ -1,5 +1,4 @@
 <?php
-    include 'server/connection.php';
     if(isset($_POST['search']) && isset($_POST['product_category'])) {
         $category = $_POST['product_category'];
         $query_products = "SELECT * FROM products WHERE product_category = ?";
@@ -117,6 +116,13 @@ https://templatemo.com/tm-559-zay-shop
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
                     </a>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="btn btn-danger" aria-current="page" href="index.php?logout=1">Logout</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 

@@ -1,14 +1,6 @@
 <?php
-$server = "localhost";
-$user = "root";
-$pass = "";
-$database   = "kelek";
-
-$koneksi = mysqli_connect($server, $user, $pass, $database);
-if (!$koneksi) { //cek koneksi
-    die("Tidak bisa terkoneksi ke database");
-}
-
+// session_start();
+include('server/connection.php');
 
 if (isset($_SESSION['logged_in'])) {
     header('location: index.php');
@@ -16,37 +8,42 @@ if (isset($_SESSION['logged_in'])) {
 }
 
 if (isset($_POST['login_btn'])) {
-    $username = $_POST['username'];
-    $upassword = ($_POST['upassword']);
+    $email = $_POST['user_email'];
+    $password = ($_POST['user_password']);
 
-    $query = "SELECT id, username, email, upassword, notelp, alamat FROM adminn
-    WHERE username = ? AND upassword = ? LIMIT 1";
+    $query = "SELECT user_id, user_name, user_email, user_password, user_phone,
+        user_address, user_city, user_photo FROM users
+        WHERE user_email = ? AND user_password = ? LIMIT 1";
 
-    $stmt_login = $koneksi->prepare($query);
-    $stmt_login->bind_param('ss', $username, $upassword);
+    $stmt_login = $conn->prepare($query);
+    $stmt_login->bind_param('ss', $email, $password);
 
     if ($stmt_login->execute()) {
         $stmt_login->bind_result(
-            $id,
-            $username,
-            $email,
-            $upassword,
-            $notelp,
-            $alamat
+            $user_id,
+            $user_name,
+            $user_email,
+            $user_password,
+            $user_phone,
+            $user_address,
+            $user_city,
+            $user_photo
         );
         $stmt_login->store_result();
 
         if ($stmt_login->num_rows() == 1) {
             $stmt_login->fetch();
 
-            $_SESSION['id'] = $id;
-            $_SESSION['username'] = $username;
-            $_SESSION['email'] = $email;
-            $_SESSION['notelp'] = $notelp;
-            $_SESSION['alamat'] = $alamat;
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['user_name'] = $user_name;
+            $_SESSION['user_email'] = $user_email;
+            $_SESSION['user_phone'] = $user_phone;
+            $_SESSION['user_address'] = $user_address;
+            $_SESSION['user_city'] = $user_city;
+            $_SESSION['user_photo'] = $user_photo;
             $_SESSION['logged_in'] = true;
 
-            header('location:landingpage.php?message=Logged in successfully');
+            header('location:index.php?message=Logged in successfully');
         } else {
             header('location:login.php?error=Could not verify your account');
         }
@@ -55,7 +52,6 @@ if (isset($_POST['login_btn'])) {
         header('location: login.php?error=Something went wrong!');
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,53 +60,47 @@ if (isset($_POST['login_btn'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN FORM</title>
-    <link rel="stylesheet" href="login.css">
+    <title>Login </title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
 </head>
 
 <body>
+    <!-- JS -->
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <!-- Content -->
     <section>
-        <div class="form-box">
-            <div class="form-value">
-                <form id="login-form" method="POST" action="login.php">
-                    <h2>Login</h2>
-                    <!-- Input Area -->
-                    <div class="inputbox">
-                        
-                        <input type="username" name="username" required>
-                        <label for="">Username</label>
+        <div class="box">
+            <form id="login-form" method="post" action="login.php">
+                <?php if (isset($_GET['error'])) ?>
+                <div role="alert">
+                    <?php
+                    if (isset($_GET['error'])) {
+                        echo $_GET['erorr'];
+                    }
+                    ?>
+                </div>
+                <div class="container">
+                    <div class="top">
+                        <span>LOGIN</span>
                     </div>
-
-                    <div class="inputbox">
-                        
-                        <input type="password" name="upassword" id="myInput" required>
-                        <label for="">Password</label>
-                        <script>
-                            function myFunction() {
-                                var x = document.getElementById("myInput");
-                                if (x.type === "password") {
-                                    x.type = "text";
-                                } else {
-                                    x.type = "password";
-                                }
-
-                            }
-                        </script>
-                        <i class="bx bx-key"></i>
+                    <div class="input">
+                        <i class="bx bx-envelope"></i>
+                        <input type="email" name="user_email" class="form-control" placeholder="Email">
                     </div>
-
-                    <button name="login_btn">Log in</button>
-                    <div class="register">
-                        <p>Don't have a account <a href="register.php">Register</a></p>
+                    <div class="input">
+                        <i class="bx bx-lock-alt"></i>
+                        <input type="password" name="user_password" class="form-control" placeholder="Password">
+                        <div class="button">
+                            <button type="submit" class="btn btn-primary" id="login-btn" name="login_btn" value="LOGIN">Login</button>
+                            <a  href="register.html" class="btn btn-primary" role="button">Register</a>
+                        </div>
                     </div>
-                </form>
-            </div>
+            </form>
         </div>
     </section>
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
 </body>
 
-</html>
+</html

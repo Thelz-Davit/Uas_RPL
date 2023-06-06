@@ -1,0 +1,27 @@
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.container{
+    box-shadow: 0 -1px 4px rgba(1, 1, 1, 1.15);
+    border-radius: 1.5rem;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+}
+.button{
+    text-align: center;
+    margin-top: 10px;
+    align-items: center;
+    height: 10vh;
+}
+.top{
+    font-size: 1.5rem;
+    margin-top: 10px;
+    font-family: 'Times New Roman';
+    text-align: center;
+    font-weight: bolder;
+}

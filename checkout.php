@@ -184,11 +184,11 @@ https://templatemo.com/tm-559-zay-shop
                                 <div class="checkout__order__products">Product <span>Price</span></div>
                                 <ul class="checkout__total__products">
                                     <?php foreach ($_SESSION['cart'] as $key => $value) { ?>
-                                        <li><?php echo $value['product_quantity']; ?> <?php echo $value['product_name']; ?> <span> <?php echo $value['product_price']; ?></span></li>
+                                        <li><?php echo $value['product_quantity']; ?> <?php echo $value['product_name']; ?> <span> <?php echo setRupiah(($value['product_price'] * $kurs_dollar)); ?></span></li>
                                     <?php } ?>
                                 </ul>
                                 <ul class="checkout__total__all">
-                                    <li>Total <span><?php echo $_SESSION['total']; ?></span></li>
+                                    <li>Total <span><?php echo setRupiah(($_SESSION['total'] * $kurs_dollar)); ?></span></li>
                                 </ul>
 
                                 <input type="submit" class="site-btn" id="checkout-btn" name="place_order" value="PLACE ORDER" />
