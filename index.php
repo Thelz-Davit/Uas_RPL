@@ -1,4 +1,5 @@
 <?php
+    include 'server/connection.php';
     if(isset($_POST['search']) && isset($_POST['product_category'])) {
         $category = $_POST['product_category'];
         $query_products = "SELECT * FROM products WHERE product_category = ?";
@@ -51,7 +52,7 @@ https://templatemo.com/tm-559-zay-shop
             <div class="w-100 d-flex justify-content-between">
                 <div>
                     <i class="fa fa-envelope mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
                 </div>
@@ -72,7 +73,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
-                Zay
+                Swaradana
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,13 +118,6 @@ https://templatemo.com/tm-559-zay-shop
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
                     </a>
                 </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="btn btn-danger" aria-current="page" href="index.php?logout=1">Logout</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
         </div>
@@ -161,18 +155,15 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/banner_img_01.jpg" alt="">
+                            <img class="img-fluid" src="assets\img\product-8.jpg" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left align-self-center">
-                                <h1 class="h1 text-success"><b>Kelek</b> eCommerce</h1>
-                                <h3 class="h2">Drum</h3>
-                                <p>Swaradana Music Gallery adalah sebuah toko yang menyediakan bermacam alat musik
-                                     <a rel="sponsored" class="text-success" href="https://templatemo.com" target="_blank">TemplateMo</a> website. 
-                                    Image credits go to <a rel="sponsored" class="text-success" href="https://stories.freepik.com/" target="_blank">Freepik Stories</a>,
-                                    <a rel="sponsored" class="text-success" href="https://unsplash.com/" target="_blank">Unsplash</a> and
-                                    <a rel="sponsored" class="text-success" href="https://icons8.com/" target="_blank">Icons 8</a>.
-                                </p>
+                                <h1 class="h1 text-success"><b>Swaradana</b> Music Gallery</h1>
+                                <h3 class="h2"></h3>
+                                <p>Selamat datang di Swaradana Music Gallery. Dimanapun kamu berada, kamu tetap bisa melengkapi kebutuhan bermusikmu.
+                                    Sejak 2023 kami telah menyediakan peralatan musik dan mengirimkan ke seluruh indonesia.
+                                   
                             </div>
                         </div>
                     </div>
@@ -182,16 +173,14 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/banner_img_02.jpg" alt="">
+                            <img class="img-fluid" src="assets\img\product-4.jpg" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left">
                                 <h1 class="h1">Piano</h1>
-                                <h3 class="h2">Aliquip ex ea commodo consequat</h3>
+                                <h3 class="h2"></h3>
                                 <p>
-                                    You are permitted to use this Zay CSS template for your commercial websites. 
-                                    You are <strong>not permitted</strong> to re-distribute the template ZIP file in any kind of template collection websites.
-                                </p>
+                            </p>
                             </div>
                         </div>
                     </div>
@@ -201,16 +190,14 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/banner_img_03.jpg" alt="">
+                            <img class="img-fluid" src="assets\img\biola-removebg-preview.png" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left">
                                 <h1 class="h1">Biola</h1>
-                                <h3 class="h2">Ullamco laboris nisi ut </h3>
+                                <h3 class="h2"> </h3>
                                 <p>
-                                    We bring you 100% free CSS templates for your websites. 
-                                    If you wish to support TemplateMo, please make a small contribution via PayPal or tell your friends about our website. Thank you.
-                                </p>
+                             </p>
                             </div>
                         </div>
                     </div>
@@ -233,13 +220,12 @@ https://templatemo.com/tm-559-zay-shop
             <div class="col-lg-6 m-auto">
                 <h1 class="h1">Categories of The Month</h1>
                 <p>
-                    ''
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="./assets/img/category_img_01.jpg" class="rounded-circle img-fluid border"></a>
+                <a href="#"><img src="assets\img\product-3.jpg" class="rounded-circle img-fluid border"></a>
                 <h5 class="text-center mt-3 mb-3">Alat Musik</h5>
                 <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
             </div>
@@ -265,7 +251,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1">Featured Product</h1>
                     <p>
-                        ''
+                        
                     </p>
                 </div>
             </div>
@@ -273,7 +259,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.php">
-                            <img src="./assets/img/feature_prod_01.jpg" class="card-img-top" alt="...">
+                            <img src="assets\img\gitar-removebg-preview.png" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -288,7 +274,7 @@ https://templatemo.com/tm-559-zay-shop
                             </ul>
                             <a href="shop-single.php" class="h2 text-decoration-none text-dark">Gitar</a>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                              Gitarnya bagus keren!!
                             </p>
                             <p class="text-muted">Reviews (24)</p>
                         </div>
@@ -297,7 +283,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.php">
-                            <img src="./assets/img/feature_prod_02.jpg" class="card-img-top" alt="...">
+                            <img src="assets\img\biola-removebg-preview.png" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -312,7 +298,7 @@ https://templatemo.com/tm-559-zay-shop
                             </ul>
                             <a href="shop-single.php" class="h2 text-decoration-none text-dark">Biola</a>
                             <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
+                               Barangnya bagus the bestt!!
                             </p>
                             <p class="text-muted">Reviews (48)</p>
                         </div>
@@ -321,7 +307,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.php">
-                            <img src="./assets/img/feature_prod_03.jpg" class="card-img-top" alt="...">
+                            <img src="assets\img\product-6.jpg" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
@@ -334,9 +320,9 @@ https://templatemo.com/tm-559-zay-shop
                                 </li>
                                 <li class="text-muted text-right">$360.00</li>
                             </ul>
-                            <a href="shop-single.phph" class="h2 text-decoration-none text-dark">D</a>
+                            <a href="shop-single.phph" class="h2 text-decoration-none text-dark">Trompet</a>
                             <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
+                              Bagus Trompetnya fix bakal jadi langganan beli disini
                             </p>
                             <p class="text-muted">Reviews (74)</p>
                         </div>
@@ -353,7 +339,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container">
             <div class="row">
 
-                <div class="col-md-4 pt-5">
+            <div class="col-md-4 pt-5">
                     <h2 class="h2 text-success border-bottom pb-3 border-light logo">Swaradana Music Gallery</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
@@ -366,7 +352,7 @@ https://templatemo.com/tm-559-zay-shop
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                            <a class="text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -375,12 +361,6 @@ https://templatemo.com/tm-559-zay-shop
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li><a class="text-decoration-none" href="#">Alat Music</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
                     </ul>
                 </div>
 

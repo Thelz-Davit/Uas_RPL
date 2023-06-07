@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'server/converttorupiah.php';
 if (isset($_POST['add_to_cart'])) {
     // If user has already add product to the cart
     if (isset($_SESSION['cart'])) {
@@ -247,7 +248,7 @@ https://templatemo.com/tm-559-zay-shop
                                             </div>
                                             <div class="product__cart__item__text">
                                                 <h6><?php echo $value['product_name']; ?></h6>
-                                                <h5><?php echo $value['product_price']; ?></h5>
+                                                <h5><?php echo setRupiah($value['product_price'] * $kurs_dollar); ?></h5>
                                             </div>
                                         </td>
                                         <td class="quantity__item">
@@ -264,7 +265,7 @@ https://templatemo.com/tm-559-zay-shop
                                             </div>
                                         </td>
                                         <td class="cart__price">
-                                            <span><?php echo $value['product_quantity'] * $value['product_price']; ?> </span>
+                                            <span><?php echo setRupiah(($value['product_quantity'] * $value['product_price']) * $kurs_dollar); ?> </span>
                                         </td>
                                         <form method="POST" action="shopping-cart.php">
                                             <td>
@@ -297,7 +298,7 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Total <span><?php if(isset($_SESSION['cart'])) { echo $_SESSION['total']; } ?></span></li>
+                            <li>Total <span><?php if(isset($_SESSION['cart'])) { echo setRupiah($_SESSION['total'] * $kurs_dollar); } ?></span></li>
                         </ul>
                         <form method="POST" action="checkout.php">
                             <input type="submit" class="btn btn-success py-2 px-5" value="Checkout" name="checkout">

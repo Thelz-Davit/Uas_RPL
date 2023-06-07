@@ -1,6 +1,6 @@
 <?php
     include('server/connection.php');
-
+    include('server/converttorupiah.php');
     if (isset($_GET['product_id'])) {
         $product_id = $_GET['product_id'];
 
@@ -253,7 +253,7 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="card">
                         <div class="card-body">
                             <h1 class="h2"><?php echo $row['product_name'];?></h1>
-                            <p class="h3 py-2"><?php echo $row['product_price'];?></p>
+                            <p class="h3 py-2"><?php echo setRupiah($row['product_price'] * $kurs_dollar);?></p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>Brand:</h6>

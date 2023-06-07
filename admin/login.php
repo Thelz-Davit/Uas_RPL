@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../connection.php');
+include ('../server/connection.php');
 
 if (isset($_SESSION['admin_logged_in'])) {
     header('location: index.php');

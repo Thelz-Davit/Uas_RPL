@@ -1,8 +1,72 @@
+<?php
+session_start();
+include('server/connection.php');
+include 'server/converttorupiah.php';
+if (!isset($_SESSION['logged_in'])) {
+    header('location: login.php');
+    exit;
+}
+
+if (isset($_GET['logout'])) {
+    if (isset($_SESSION['logged_in'])) {
+        unset($_SESSION['logged_in']);
+        unset($_SESSION['user_email']);
+        unset($_SESSION['user_name']);
+        unset($_SESSION['user_photo']);
+        header('location: login.php');
+        exit;
+    }
+}
+
+if (isset($_POST['change_password'])) {
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $email = $_SESSION['user_email'];
+
+    if ($password !== $confirm_password) {
+        header('location: account.php?error=Password did not match');
+    } else if (strlen($password) < 6) {
+        header('location: account.php?error=Password must be at least 6 characters');
+
+        // Inf no error
+    } else {
+        $query_change_password = "UPDATE users SET user_password = ? WHERE user_email = ?";
+
+        $stmt_change_password = $conn->prepare($query_change_password);
+        $stmt_change_password->bind_param('ss', md5($password), $email);
+
+        if ($stmt_change_password->execute()) {
+            header('location: account.php?success=Password has been updated successfully');
+        } else {
+            header('location: account.php?error=Could not update password');
+        }
+    }
+}
+
+// Get Orders by User Login
+if (isset($_SESSION['logged_in'])) {
+    $user_id = $_SESSION['user_id'];
+
+    $query_orders = "SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC";
+
+    $stmt_orders = $conn->prepare($query_orders);
+    $stmt_orders->bind_param('i', $user_id);
+    $stmt_orders->execute();
+
+    $user_orders = $stmt_orders->get_result();
+}
+
+// Cara memperbaiki bug pada $total_bayar saat mengakses halaman account
+if (isset($_SESSION['total'])) {
+    $total_bayar = $_SESSION['total'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Zay Shop - About Page</title>
+    <title>Zay Shop - Product Listing Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -32,7 +96,7 @@ https://templatemo.com/tm-559-zay-shop
             <div class="w-100 d-flex justify-content-between">
                 <div>
                     <i class="fa fa-envelope mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
                 </div>
@@ -53,7 +117,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
-            Swaradana
+                Swaradana
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,11 +153,11 @@ https://templatemo.com/tm-559-zay-shop
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <a class="nav-icon position-relative text-decoration-none" href="shopping-cart.php">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <a class="nav-icon position-relative text-decoration-none" href="account.php">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
                     </a>
@@ -120,174 +184,171 @@ https://templatemo.com/tm-559-zay-shop
             </form>
         </div>
     </div>
-
-
-
-    <section class="bg-success py-5">
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
         <div class="container">
-            <div class="row align-items-center py-5">
-                <div class="col-md-8 text-white">
-                    <h1>About Us</h1>
-                    <p>
-                        Swaradana adalah sebuah toko alat musik yang menyediakan berbagai alat musik. 
-                       </p>
-                </div>
-                <div class="col-md-4">
-                    <img src="assets/img/about-hero.svg" alt="About Hero">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Close Banner -->
-
-    <!-- Start Section -->
-    <section class="container py-5">
-        <div class="row text-center pt-5 pb-3">
-            <div class="col-lg-6 m-auto">
-                <h1 class="h1">Our Services</h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    Lorem ipsum dolor sit amet.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fa fa-truck fa-lg"></i></div>
-                    <h2 class="h5 mt-4 text-center">Delivery Services</h2>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fas fa-exchange-alt"></i></div>
-                    <h2 class="h5 mt-4 text-center">Shipping & Return</h2>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fa fa-percent"></i></div>
-                    <h2 class="h5 mt-4 text-center">Promotion</h2>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fa fa-user"></i></div>
-                    <h2 class="h5 mt-4 text-center">24 Hours Service</h2>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Section -->
-
-    <!-- Start Brands -->
-    <section class="bg-light py-5">
-        <div class="container my-4">
-            <div class="row text-center py-3">
-                <div class="col-lg-6 m-auto">
-                    <h1 class="h1">Our Brands</h1>
-                    <p>
-                        
-                    </p>
-                </div>
-                <div class="col-lg-9 m-auto tempaltemo-carousel">
-                    <div class="row d-flex flex-row">
-                        <!--Controls-->
-                        <div class="col-1 align-self-center">
-                            <a class="h1" href="#templatemo-slide-brand" role="button" data-bs-slide="prev">
-                                <i class="text-light fas fa-chevron-left"></i>
-                            </a>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Account</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.php">Home</a>
+                            <span>Account</span>
                         </div>
-                        <!--End Controls-->
-
-                        <!--Carousel Wrapper-->
-                        <div class="col">
-                            <div class="carousel slide carousel-multi-item pt-2 pt-md-0" id="templatemo-slide-brand" data-bs-ride="carousel">
-                                <!--Slides-->
-                                <div class="carousel-inner product-links-wap" role="listbox">
-
-                                    <!--First slide-->
-                                    <div class="carousel-item active">
-                                        <div class="row">
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--End First slide-->
-
-                                    <!--Second slide-->
-                                    <div class="carousel-item">
-                                        <div class="row">
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--End Second slide-->
-
-                                    <!--Third slide-->
-                                    <div class="carousel-item">
-                                        <div class="row">
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
-                                            </div>
-                                            <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--End Third slide-->
-
-                                </div>
-                                <!--End Slides-->
-                            </div>
-                        </div>
-                        <!--End Carousel Wrapper-->
-
-                        <!--Controls-->
-                        <div class="col-1 align-self-center">
-                            <a class="h1" href="#templatemo-slide-brand" role="button" data-bs-slide="next">
-                                <i class="text-light fas fa-chevron-right"></i>
-                            </a>
-                        </div>
-                        <!--End Controls-->
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--End Brands-->
+    <!-- Breadcrumb Section End -->
 
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <form id="account-form" method="POST" action="account.php">
+                            <?php if (isset($_GET['success'])) { ?>
+                                <div class="alert alert-info" role="alert">
+                                    <?php if (isset($_GET['success'])) {
+                                        echo $_GET['success'];
+                                    } ?>
+                                </div>
+                            <?php } ?>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?php if (isset($_GET['error'])) {
+                                        echo $_GET['error'];
+                                    } ?>
+                                </div>
+                            <?php } ?>
+                            <h6 class="checkout__title">Change Password</h6>
+                            <div class="checkout__input">
+                                <p>Password</p>
+                                <input type="password" id="account-password" name="password">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Confirm Password</p>
+                                <input type="password" id="account-confirm-password" name="confirm_password">
+                            </div>
+                            <div class="checkout__input">
+                                <input type="submit" class="site-btn" id="change-password-btn" name="change_password" value="CHANGE PASSWORD" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <?php if (isset($_GET['message'])) { ?>
+                            <div class="alert alert-info" role="alert">
+                                <?php if (isset($_GET['message'])) {
+                                    echo $_GET['message'];
+                                } ?>
+                            </div>
+                        <?php } ?>
+                        <div class="checkout__order">
+                            <h4 class="order__title">Account Info</h4>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                                    <img src="<?php echo 'img/profile/' . $_SESSION['user_photo']; ?>" alt="" class="rounded-circle img-responsive" />
+                                </div>
+                                <div class="col-sm-6 col-md-8">
+                                    <h4><?php if (isset($_SESSION['user_name'])) {
+                                            echo $_SESSION['user_name'];
+                                        } ?></h4>
+                                    <small><cite title="Address"><?php if (isset($_SESSION['user_address'])) {
+                                                                        echo $_SESSION['user_address'];
+                                                                    } ?>, <?php if (isset($_SESSION['user_city'])) {
+                                                                                                                                                            echo $_SESSION['user_city'];
+                                                                                                                                                        } ?> <i class="fas fa-map-marker-alt"></i></cite></small>
+                                    <p>
+                                        <i class="fa fa-envelope"></i> <?php if (isset($_SESSION['user_email'])) {
+                                                                            echo $_SESSION['user_email'];
+                                                                        } ?>
+                                        <br />
+                                        <i class="fa fa-phone"></i> <?php if (isset($_SESSION['user_phone'])) {
+                                                                            echo $_SESSION['user_phone'];
+                                                                        } ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <h4 class="order__title"></h4>
+                            <a href="#orders" class="btn btn-primary">YOUR ORDERS</a>
+                            <a href="account.php?logout=1" id="logout-btn" class="btn btn-danger">LOG OUT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
 
+    <!-- Order History Begin -->
+    <section id="orders" class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <div class="alert alert-info" role="alert">
+                            <?php if (isset($_GET['payment_message'])) {
+                                echo $_GET['payment_message'];
+                            } ?>
+                        </div>
+                        <h2>Your Orders History</h2>
+                        <span>***</span>
+                    </div>
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Cost</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($user_orders as $order) { ?>
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__text">
+                                                <h6><?php echo $order['order_id']; ?></h6>
+                                            </div>
+                                        </td>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__text">
+                                                <?php echo setRupiah($order['order_cost'] * $kurs_dollar); ?>
+                                            </div>
+                                        </td>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__text">
+                                                <h6><?php echo $order['order_status']; ?></h6>
+                                            </div>
+                                        </td>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__text">
+                                                <h5><?php echo $order['order_date']; ?></h5>
+                                            </div>
+                                        </td>
+                                        <form method="POST" action="order-details.php">
+                                            <td class="cart__price">
+                                                <input type="hidden" value="<?php echo $order['order_status']; ?>" name="order_status"/>
+                                                <input type="hidden" value="<?php echo $order['order_id']; ?>" name="order_id"/>
+                                                <input class="btn btn-success" name="order_details_btn" type="submit" value="Details"/>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Order History End -->
+
+    
     <!-- Start Footer -->
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">

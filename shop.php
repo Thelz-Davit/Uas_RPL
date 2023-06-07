@@ -1,5 +1,6 @@
 <?php
     include 'server/connection.php';
+    include 'server/converttorupiah.php';
     if(isset($_POST['search']) && isset($_POST['product_category'])) {
         $category = $_POST['product_category'];
         $query_products = "SELECT * FROM products WHERE product_category = ?";
@@ -72,7 +73,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
-                Kelek
+                Swaradana
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,7 +113,7 @@ https://templatemo.com/tm-559-zay-shop
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <a class="nav-icon position-relative text-decoration-none" href="account.php">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
                     </a>
@@ -234,7 +235,7 @@ https://templatemo.com/tm-559-zay-shop
                                         <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
                                     </li>
                                 </ul>
-                                <p class="text-center mb-0"><?php echo $row['product_price'];?></p>
+                                <p class="text-center mb-0"><?php echo setRupiah($row['product_price'] * $kurs_dollar);?></p>
                             </div>
                         </div>
                     </div>
