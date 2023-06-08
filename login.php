@@ -1,6 +1,7 @@
 <?php
-// session_start();
-include('server/connection.php');
+session_start();
+include('server\connection.php');
+
 
 if (isset($_SESSION['logged_in'])) {
     header('location: index.php');
@@ -95,7 +96,7 @@ if (isset($_POST['login_btn'])) {
                         <input type="password" name="user_password" class="form-control" placeholder="Password">
                         <div class="button">
                             <button type="submit" class="btn btn-primary" id="login-btn" name="login_btn" value="LOGIN">Login</button>
-                            <a  href="register.html" class="btn btn-primary" role="button">Register</a>
+                            <a  href="register.php" class="btn btn-primary" role="button">Register</a>
                         </div>
                     </div>
             </form>
