@@ -77,42 +77,29 @@
                                         <input class="form-control" type="text" name="product_name" value="<?php echo $product['product_name']; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <label>Paper Type</label>
+                                        <label>Product Brand</label>
                                         <select class="form-control" name="product_brand">
-                                            <option value="" disabled>Select Paper Type</option>
-                                            <option value="Art Paper" <?php if ($product['product_brand'] == 'Art Paper') echo ' selected'; ?>>Art Paper</option>
-                                            <option value="Laminasi Glossy" <?php if ($product['product_brand'] == 'Laminasi Glossy') echo ' selected'; ?>>Laminasi Glossy</option>
-                                            <option value="NCR" <?php if ($product['product_brand'] == 'NCR') echo ' selected'; ?>>NCR</option>
+                                            <option value="" disabled>Select Product Brand</option>
+                                            <option value="Yamaha" <?php if ($product['product_brand'] == 'Yamaha') echo ' selected'; ?>>Yamaha</option>
+                                            <option value="Fender" <?php if ($product['product_brand'] == 'Fender') echo ' selected'; ?>>Fender</option>
+                                            <option value="Gibson" <?php if ($product['product_brand'] == 'Gibson') echo ' selected'; ?>>Gibson</option>
                                             <option value="Concorde" <?php if ($product['product_brand'] == 'Concorde') echo ' selected'; ?>>Concorde</option>
-                                            <option value="Art Carton" <?php if ($product['product_brand'] == 'Art Carton') echo ' selected'; ?>>Art Carton</option>
-                                            <option value="Ivory" <?php if ($product['product_brand'] == 'Ivory') echo ' selected'; ?>>Ivory</option>
-                                            <option value="Linen Jepang" <?php if ($product['product_brand'] == 'Linen Jepang') echo ' selected'; ?>>Linen Jepang</option>
+                                            <option value="Korg" <?php if ($product['product_brand'] == 'Korg') echo ' selected'; ?>>Korg</option>
+                                            <option value="Pearl" <?php if ($product['product_brand'] == 'Pearl') echo ' selected'; ?>>Pearl</option>
+                                            <option value="Ibanez" <?php if ($product['product_brand'] == 'Ibanez') echo ' selected'; ?>>Ibanez</option>
+                                            <option value="Taylor" <?php if ($product['product_brand'] == 'Taylor') echo ' selected'; ?>>Taylor</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Category</label>
+                                        <label>Product Category</label>
                                         <select class="form-control" name="product_category">
                                             <option value="" disabled>Select Category</option>
-                                            <option value="Alfabet" <?php if ($product['product_category'] == 'Alfabet') echo ' selected'; ?>>Alfabet</option>
-                                            <option value="Angka" <?php if ($product['product_category'] == 'Angka') echo ' selected'; ?>>Angka</option>
-                                            <option value="Kalender" <?php if ($product['product_category'] == 'Kalender') echo ' selected'; ?>>Kalender</option>
-                                            <option value="Peta" <?php if ($product['product_category'] == 'Peta') echo ' selected'; ?>>Peta</option>
-                                            <option value="Hewan" <?php if ($product['product_category'] == 'Hewan') echo ' selected'; ?>>Hewan</option>
-                                            <option value="Tabel Periodik" <?php if ($product['product_category'] == 'Tabel Periodik') echo ' selected'; ?>>Tabel Periodik</option>
-                                            <option value="Buah dan Sayur" <?php if ($product['product_category'] == 'Buah dan Sayur') echo ' selected'; ?>>Buah dan Sayur</option>
-                                            <option value="Hijaiyah" <?php if ($product['product_category'] == 'Hijaiyah') echo ' selected'; ?>>Hijaiyah</option>
+                                            <option value="Gitar" <?php if ($product['product_category'] == 'Gitar') echo ' selected'; ?>>Gitar</option>
+                                            <option value="Drum" <?php if ($product['product_category'] == 'Drum') echo ' selected'; ?>>Drum</option>
+                                            <option value="Keyboard dan Piano" <?php if ($product['product_category'] == 'Keyboard dan Piano') echo ' selected'; ?>>Keyboard dan Piano</option>
+                                            <option value="Alat Tiup" <?php if ($product['product_category'] == 'Alat Tiup') echo ' selected'; ?>>Alat Tiup</option>
+                                            <option value="Alat Gesek" <?php if ($product['product_category'] == 'Alat Gesek') echo ' selected'; ?>>Alat Gesek</option>
                                         </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Criteria</label>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="featured" name="product_criteria" value="featured" required <?php if ($product['product_criteria'] == 'featured') echo ' checked'; ?>>
-                                            <label class="custom-control-label" for="featured">Featured</label>
-                                        </div>
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="none" name="product_criteria" value="none" required <?php if ($product['product_criteria'] == 'none') echo ' checked'; ?>>
-                                            <label class="custom-control-label" for="none">Non-Featured</label>
-                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Color</label>

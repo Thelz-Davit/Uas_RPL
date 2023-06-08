@@ -32,10 +32,10 @@ if (isset($_POST['create_btn'])) {
     $image_name4 = str_replace(' ', '_', $product_name) . "4.jpg";
 
     // Upload image
-    move_uploaded_file($product_image1, "../img/product/" . $image_name1);
-    move_uploaded_file($product_image2, "../img/product/" . $image_name2);
-    move_uploaded_file($product_image3, "../img/product/" . $image_name3);
-    move_uploaded_file($product_image4, "../img/product/" . $image_name4);
+    move_uploaded_file($product_image1, "../assets/img/product/" . $image_name1);
+    move_uploaded_file($product_image2, "../assets/img/product/" . $image_name2);
+    move_uploaded_file($product_image3, "../assets/img/product/" . $image_name3);
+    move_uploaded_file($product_image4, "../assets/img/product/" . $image_name4);
 
     $query_insert_product = "INSERT INTO products (product_name, product_brand, product_category, 
         product_criteria, product_color, product_description, product_price, special_offer, 
@@ -100,37 +100,26 @@ if (isset($_POST['create_btn'])) {
                                     <label>Product Brand</label>
                                     <select class="form-control" name="product_brand">
                                         <option value="" disabled selected>Select Brand</option>
-                                        <option value="Khamzo">Khamzo</option>
-                                        <option value="Private">Private</option>
-                                        <option value="Spotec">Spotec</option>
-                                        <option value="Fleece">Fleece</option>
-                                        <option value="Houseofcut">Houseofcut</option>
-                                        <option value="Unixcomart">Unixcomart</option>
-                                        <option value="Firefly">Firefly</option>
-                                        <option value="Matsuda">Matsuda</option>
+                                        <option value="Yamaha">Yamaha</option>
+                                        <option value="Fender">Fender</option>
+                                        <option value="Gibson">Gibson</option>
+                                        <option value="Concorde">Concorde</option>
+                                        <option value="Korg">Korg</option>
+                                        <option value="Pearl">Pearl</option>
+                                        <option value="Ibanez">Ibanez</option>
+                                        <option value="Taylor">Taylor</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Product Category</label>
                                     <select class="form-control" name="product_category">
                                         <option value="" disabled selected>Select Category</option>
-                                        <option value="sepatu">Sepatu</option>
-                                        <option value="jaket">Jaket</option>
-                                        <option value="kaos">Kaos</option>
-                                        <option value="syal">Syal</option>
-                                        <option value="tas">Tas</option>
+                                        <option value="Gitar">Gitar</option>
+                                        <option value="Drum">Drum</option>
+                                        <option value="Keyboard dan Piano">Keyboard dan Piano</option>
+                                        <option value="Alat Tiup">Alat Tiup</option>
+                                        <option value="Alat Gesek">Alat Gesek</option>
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Product Criteria</label>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" id="favourite" name="product_criteria" value="favourite" required>
-                                        <label class="custom-control-label" for="favourite">Favourite</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" id="none" name="product_criteria" value="none" required>
-                                        <label class="custom-control-label" for="none">Non-Favourite</label>
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Color</label>

@@ -4,9 +4,9 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-tshirt"></i>
+            <i class="fas fa-music"></i>
         </div>
-        <div class="sidebar-brand-text mx-3"> Male Fashion</div>
+        <div class="sidebar-brand-text mx-3"> Swaradana</div>
     </a>
 
     <!-- Divider -->
@@ -50,11 +50,11 @@
     </li>
 
     <!-- Nav Item - Customers -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="customers.php">
             <i class="fas fa-users"></i>
             <span>Customers</span></a>
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider">

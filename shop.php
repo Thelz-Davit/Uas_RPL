@@ -22,7 +22,7 @@
 <html lang="en">
 
 <head>
-    <title>Zay Shop - Product Listing Page</title>
+    <title>Swaradana - Product Listing Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -52,7 +52,7 @@ https://templatemo.com/tm-559-zay-shop
             <div class="w-100 d-flex justify-content-between">
                 <div>
                     <i class="fa fa-envelope mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
                 </div>
@@ -199,22 +199,13 @@ https://templatemo.com/tm-559-zay-shop
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Featured</option>
-                                <option>A to Z</option>
-                                <option>Item</option>
-                            </select>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                 <?php while($row = $products->fetch_assoc()){ ?>
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="assets/img/<?php echo $row['product_image1'];?>">
+                                <img class="card-img rounded-0 img-fluid" src="assets/img/product/<?php echo $row['product_image1'];?>">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
                                         <li><a class="btn btn-success text-white" href="<?php echo "shop-single.php?product_id=" . $row['product_id']; ?>"><i class="far fa-heart"></i></a></li>
@@ -370,12 +361,12 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container">
             <div class="row">
 
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
+            <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Swaradana Music Gallery</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>
-                            123 Consectetur at ligula 10660
+                            JL. Phh. Mustofa No.23, Neglasari, Kec. Cibeunying Kaler, Kota Bandung, Jawa Barat 40124
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
@@ -383,7 +374,7 @@ https://templatemo.com/tm-559-zay-shop
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                            <a class="text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -391,13 +382,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Alat Music</a></li>
                     </ul>
                 </div>
 

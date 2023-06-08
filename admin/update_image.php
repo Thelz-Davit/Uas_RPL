@@ -19,10 +19,10 @@ if (isset($_POST['update_image_btn'])) {
     $image_name4 = str_replace(' ', '_', $product_name) . "4.jpg";
 
     // Upload image
-    move_uploaded_file($image1, "../img/product/" . $image_name1);
-    move_uploaded_file($image2, "../img/product/" . $image_name2);
-    move_uploaded_file($image3, "../img/product/" . $image_name3);
-    move_uploaded_file($image4, "../img/product/" . $image_name4);
+    move_uploaded_file($image1, "../assets/img/product/" . $image_name1);
+    move_uploaded_file($image2, "../assets/img/product/" . $image_name2);
+    move_uploaded_file($image3, "../assets/img/product/" . $image_name3);
+    move_uploaded_file($image4, "../assets/img/product/" . $image_name4);
 
     $query_update_image = "UPDATE products SET product_image1 = ?, product_image2 = ?, 
     product_image3 = ?, product_image4 = ? WHERE product_id = ?";

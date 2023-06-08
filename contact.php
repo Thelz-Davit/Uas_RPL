@@ -35,7 +35,7 @@ https://templatemo.com/tm-559-zay-shop
             <div class="w-100 d-flex justify-content-between">
                 <div>
                     <i class="fa fa-envelope mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
                 </div>
@@ -56,7 +56,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
-                Zay
+                Swaradana
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,8 +130,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="col-md-6 m-auto text-center">
             <h1 class="h1">Contact Us</h1>
             <p>
-                Proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet.
+               
             </p>
         </div>
     </div>
@@ -153,7 +152,7 @@ https://templatemo.com/tm-559-zay-shop
         }).addTo(mymap);
 
         L.marker([-23.013104, -43.394365, 13]).addTo(mymap)
-            .bindPopup("<b>Zay</b> eCommerce Template<br />Location.").openPopup();
+            .bindPopup("<b>Swaradana</b> eCommerce Template<br />Location.").openPopup();
 
         mymap.scrollWheelZoom.disable();
         mymap.touchZoom.disable();
@@ -198,12 +197,12 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container">
             <div class="row">
 
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
+            <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Swaradana Music Gallery</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>
-                            123 Consectetur at ligula 10660
+                            JL. Phh. Mustofa No.23, Neglasari, Kec. Cibeunying Kaler, Kota Bandung, Jawa Barat 40124
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
@@ -211,7 +210,7 @@ https://templatemo.com/tm-559-zay-shop
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                            <a class="text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -219,13 +218,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Alat Music</a></li>
                     </ul>
                 </div>
 

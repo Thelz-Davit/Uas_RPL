@@ -76,7 +76,7 @@ https://templatemo.com/tm-559-zay-shop
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
-                Zay
+                Swaradana
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,7 +153,7 @@ https://templatemo.com/tm-559-zay-shop
             <?php while ($row = $product_details->fetch_assoc()) { ?>
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="assets/img/<?php echo $row['product_image1'];?>" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="assets/img/product/<?php echo $row['product_image1'];?>" alt="Card image cap" id="product-detail">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -174,25 +174,26 @@ https://templatemo.com/tm-559-zay-shop
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/img/<?php echo $row['product_image1'];?>" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="assets/img/product/<?php echo $row['product_image1'];?>" alt="Product Image 1">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/img/<?php echo $row['product_image1'];?>" alt="Product Image 2">
+                                                <img class="card-img img-fluid" src="assets/img/product/<?php echo $row['product_image2'];?>" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/img/product_single_03.jpg" alt="Product Image 3">
+                                                <img class="card-img img-fluid" src="assets/img/product/<?php echo $row['product_image3'];?>" alt="Product Image 3">
                                             </a>
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <!--/.First slide-->
 
                                 <!--Second slide-->
-                                <div class="carousel-item">
+                                <!-- <div class="carousel-item">
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
@@ -214,7 +215,7 @@ https://templatemo.com/tm-559-zay-shop
                                 <!--/.Second slide-->
 
                                 <!--Third slide-->
-                                <div class="carousel-item">
+                                <!-- <div class="carousel-item">
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
@@ -232,7 +233,7 @@ https://templatemo.com/tm-559-zay-shop
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!--/.Third slide-->
                             </div>
                             <!--End Slides-->
@@ -277,12 +278,6 @@ https://templatemo.com/tm-559-zay-shop
                             <h6>Specification:</h6>
                             <ul class="list-unstyled pb-3">
                                 <li>Lorem ipsum dolor sit</li>
-                                <li>Amet, consectetur</li>
-                                <li>Adipiscing elit,set</li>
-                                <li>Duis aute irure</li>
-                                <li>Ut enim ad minim</li>
-                                <li>Dolore magna aliqua</li>
-                                <li>Excepteur sint</li>
                             </ul>
 
                             <form action="shopping-cart.php" method="POST">
@@ -316,9 +311,6 @@ https://templatemo.com/tm-559-zay-shop
                                     </div>
                                 </div>
                                 <div class="row pb-3">
-                                    <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
-                                    </div>
                                     <div class="col d-grid">
                                         <button type="submit" class="btn btn-success btn-lg" name="add_to_cart" value="add_to_cart">Add To Cart</button>
                                     </div>
