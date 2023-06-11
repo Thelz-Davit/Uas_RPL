@@ -1,8 +1,92 @@
+<?php
+    session_start();
+    include('server/connection.php');
+
+    if (isset($_SESSION['logged_in'])) {
+        header('location: account.php');
+        exit;
+    }
+
+    if (isset($_POST['register'])) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
+        $phone = $_POST['phone'];
+        $city = $_POST['city'];
+        $address = $_POST['address'];
+
+        // This is image file
+        $photo = $_FILES['photo']['tmp_name'];
+
+        // Photo name
+        $photo_name = str_replace(' ', '_', $name) . ".jpg";
+
+        // Upload image
+        move_uploaded_file($photo, "img/profile/" . $photo_name);
+
+        // If password didn't match
+        if ($password !== $confirm_password) {
+            header('location: register.php?error=Password did not match');
+
+        // If password less than 6 characters
+        } else if (strlen($password) < 6) {
+            header('location: register.php?error=Password must be at least 6 characters');
+
+        // Inf no error
+        } else {
+            // Check whether there is a user with this email or not
+            $query_check_user = "SELECT COUNT(*) FROM users WHERE user_email = ?";
+
+            $stmt_check_user = $conn->prepare($query_check_user);
+            $stmt_check_user->bind_param('s', $email);
+            $stmt_check_user->execute();
+            $stmt_check_user->bind_result($num_rows);
+            $stmt_check_user->store_result();
+            $stmt_check_user->fetch();
+
+            // If there is a user registered with this email
+            if ($num_rows !== 0) {
+                header('location: register.php?error=User with this email already exists');
+            
+            // If no user registered with this email
+            } else {
+                $query_save_user = "INSERT INTO users (user_name, user_email, user_password, user_phone, user_address, user_city, user_photo) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                // Create a new user
+                $stmt_save_user = $conn->prepare($query_save_user);
+                $stmt_save_user->bind_param('sssssss', $name, $email, md5($password), $phone, $address, $city, $photo_name);
+                
+                // If account was created successfully
+                if ($stmt_save_user->execute()) {
+                    $user_id = $stmt_save_user->insert_id;
+
+                    $_SESSION['user_id'] = $user_id;
+                    $_SESSION['user_name'] = $name;
+                    $_SESSION['user_email'] = $email;
+                    $_SESSION['user_password'] = $password;
+                    $_SESSION['user_phone'] = $phone;
+                    $_SESSION['user_address'] = $address;
+                    $_SESSION['user_city'] = $city;
+                    $_SESSION['user_photo'] = $photo_name;
+                    $_SESSION['logged_in'] = true;
+                    
+                    header('location: account.php?register_success=You registered successfully!');
+                // If account couldn't registered
+                } else {
+                    header('location: register.php?error=Could not create an account at the moment');
+                }
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Zay Shop - Contact</title>
+    <title>Zay Shop - Product Listing Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,9 +100,6 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-
-    <!-- Load map styles -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <!--
     
 TemplateMo 559 Zay Shop
@@ -35,7 +116,7 @@ https://templatemo.com/tm-559-zay-shop
             <div class="w-100 d-flex justify-content-between">
                 <div>
                     <i class="fa fa-envelope mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
                 </div>
@@ -55,7 +136,7 @@ https://templatemo.com/tm-559-zay-shop
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
                 Swaradana
             </a>
 
@@ -107,102 +188,91 @@ https://templatemo.com/tm-559-zay-shop
     </nav>
     <!-- Close Header -->
 
-    <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Register Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form id="checkout-form" method="POST" action="register.php" enctype=multipart/form-data> 
+                    <div class="alert alert-danger" role="alert">
+                        <?php if (isset($_GET['error'])) {
+                            echo $_GET['error'];
+                        } ?>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <h6 class="checkout__title">Registration</h6>
+                            <div class="checkout__input">
+                                <p>Name<span>*</span></p>
+                                <input type="text" id="registered-name" name="name" required>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Email<span>*</span></p>
+                                <input id="registered-email" type="email" name="email" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Password<span>*</span></p>
+                                        <input id="registered-password" type="password" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Confirm Password<span>*</span></p>
+                                        <input id="registered-confirm-password" type="password" name="confirm_password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Phone<span></span></p>
+                                <input type="text" name="phone">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Town/City<span></span></p>
+                                <input type="text" name="city">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Address<span>*</span></p>
+                                <input type="text" name="address" placeholder="Street Address" class="checkout__input__add">
+                            </div>
+                            <div>
+                                <p>Photo<span></span></p>
+                                <div class="custom-file">
+                                    <input type="file" id="photo" name="photo" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="cold-md-12">
+                                    <p> </p>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <input type="submit" class="site-btn" id="register-btn" name="register" value="REGISTER" />
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="acc">
+                                    <a id="login-url" href="login.php">Do you have an account? Login</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <form action="" method="get" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                    <button type="submit" class="input-group-text bg-success text-light">
-                        <i class="fa fa-fw fa-search text-white"></i>
-                    </button>
-                </div>
-            </form>
         </div>
-    </div>
+    </section>
+    <!-- Register Section End -->
 
-
-    <!-- Start Content Page -->
-    <div class="container-fluid bg-light py-5">
-        <div class="col-md-6 m-auto text-center">
-            <h1 class="h1">Contact Us</h1>
-            <p>
-               
-            </p>
-        </div>
-    </div>
-
-    <!-- Start Map -->
-    <div id="mapid" style="width: 100%; height: 300px;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <script>
-        var mymap = L.map('mapid').setView([-23.013104, -43.394365, 13], 13);
-
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Zay Telmplte | Template Design by <a href="https://templatemo.com/">Templatemo</a> | Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(mymap);
-
-        L.marker([-23.013104, -43.394365, 13]).addTo(mymap)
-            .bindPopup("<b>Swaradana</b> eCommerce Template<br />Location.").openPopup();
-
-        mymap.scrollWheelZoom.disable();
-        mymap.touchZoom.disable();
-    </script>
-    <!-- Ena Map -->
-
-    <!-- Start Contact -->
-    <div class="container py-5">
-        <div class="row py-5">
-            <form class="col-md-9 m-auto" method="post" role="form">
-                <div class="row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputname">Name</label>
-                        <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Name">
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputemail">Email</label>
-                        <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Subject</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Subject">
-                </div>
-                <div class="mb-3">
-                    <label for="inputmessage">Message</label>
-                    <textarea class="form-control mt-1" id="message" name="message" placeholder="Message" rows="8"></textarea>
-                </div>
-                <div class="row">
-                    <div class="col text-end mt-2">
-                        <button type="submit" class="btn btn-success btn-lg px-3">Let’s Talk</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- End Contact -->
-
-
-    <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
+<!-- Start Footer -->
+<footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
 
-            <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Swaradana Music Gallery</h2>
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>
-                            JL. Phh. Mustofa No.23, Neglasari, Kec. Cibeunying Kaler, Kota Bandung, Jawa Barat 40124
+                            123 Consectetur at ligula 10660
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
@@ -210,7 +280,7 @@ https://templatemo.com/tm-559-zay-shop
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">swaradana@gmail.com</a>
+                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
                         </li>
                     </ul>
                 </div>
@@ -218,7 +288,13 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Alat Music</a></li>
+                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
+                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
+                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
+                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
                     </ul>
                 </div>
 

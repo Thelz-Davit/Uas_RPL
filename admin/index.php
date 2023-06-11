@@ -6,43 +6,54 @@
     if (!isset($_SESSION['admin_logged_in'])) {
         header('location: login.php');
     }
+    if (isset($_GET['logout'])) {
+        if (isset($_SESSION['admin_logged_in'])) {
+            unset($_SESSION['admin_id']);
+            unset($_SESSION['admin_name']);
+            unset($_SESSION['admin_email']);
+            unset($_SESSION['admin_phone']);
+            unset($_SESSION['admin_logged_in']);
+            header('location: login.php');
+            exit;
+        }
+    }
 ?>
 <?php
-    // $query_total_orders = "SELECT COUNT(*) AS total_orders FROM orders";
-    // $stmt_total_orders = $conn->prepare($query_total_orders);
-    // $stmt_total_orders->execute();
-    // $stmt_total_orders->bind_result($total_orders);
-    // $stmt_total_orders->store_result();
-    // $stmt_total_orders->fetch();
+    $query_total_orders = "SELECT COUNT(*) AS total_orders FROM orders";
+    $stmt_total_orders = $conn->prepare($query_total_orders);
+    $stmt_total_orders->execute();
+    $stmt_total_orders->bind_result($total_orders);
+    $stmt_total_orders->store_result();
+    $stmt_total_orders->fetch();
 
-    // $query_total_payments = "SELECT SUM(o.order_cost) AS total_payments FROM payments p, orders o WHERE p.order_id = o.order_id";
-    // $stmt_total_payments = $conn->prepare($query_total_payments);
-    // $stmt_total_payments->execute();
-    // $stmt_total_payments->bind_result($total_payments);
-    // $stmt_total_payments->store_result();
-    // $stmt_total_payments->fetch();
+    $query_total_payments = "SELECT SUM(o.order_cost) AS total_payments FROM payments p, orders o WHERE p.order_id = o.order_id";
+    $stmt_total_payments = $conn->prepare($query_total_payments);
+    $stmt_total_payments->execute();
+    $stmt_total_payments->bind_result($total_payments);
+    $stmt_total_payments->store_result();
+    $stmt_total_payments->fetch();
 
-    // $query_total_paid = "SELECT COUNT(*) AS total_paid FROM orders WHERE order_status = 'delivered' OR order_status = 'shipped' OR order_status = 'paid'";
-    // $stmt_total_paid = $conn->prepare($query_total_paid);
-    // $stmt_total_paid->execute();
-    // $stmt_total_paid->bind_result($total_paid);
-    // $stmt_total_paid->store_result();
-    // $stmt_total_paid->fetch();
+    $query_total_paid = "SELECT COUNT(*) AS total_paid FROM orders WHERE order_status = 'delivered' OR order_status = 'shipped' OR order_status = 'paid'";
+    $stmt_total_paid = $conn->prepare($query_total_paid);
+    $stmt_total_paid->execute();
+    $stmt_total_paid->bind_result($total_paid);
+    $stmt_total_paid->store_result();
+    $stmt_total_paid->fetch();
 
-    // $query_total_not_paid = "SELECT COUNT(*) AS total__not_paid FROM orders WHERE order_status = 'not paid'";
-    // $stmt_total_not_paid = $conn->prepare($query_total_not_paid);
-    // $stmt_total_not_paid->execute();
-    // $stmt_total_not_paid->bind_result($total_not_paid);
-    // $stmt_total_not_paid->store_result();
-    // $stmt_total_not_paid->fetch();
+    $query_total_not_paid = "SELECT COUNT(*) AS total__not_paid FROM orders WHERE order_status = 'not paid'";
+    $stmt_total_not_paid = $conn->prepare($query_total_not_paid);
+    $stmt_total_not_paid->execute();
+    $stmt_total_not_paid->bind_result($total_not_paid);
+    $stmt_total_not_paid->store_result();
+    $stmt_total_not_paid->fetch();
 
-    // $kurs_dollar = 15722;
+    $kurs_dollar = 15722;
 
-    // function setRupiah($price)
-    // {
-    //     $result = "Rp".number_format($price, 0, ',', '.');
-    //     return $result;
-    // }
+    function setRupiah($price)
+    {
+        $result = "Rp".number_format($price, 0, ',', '.');
+        return $result;
+    }
 ?>
 
 <?php include('layouts/header.php')?>
@@ -54,8 +65,6 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
                     <!-- Content Row -->
@@ -103,7 +112,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Not Paid
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Paid
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">

@@ -21,7 +21,7 @@
 <html lang="en">
 
 <head>
-    <title>Zay Shop - Product Detail Page</title>
+    <title>Swaradana Shop - Product Detail Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -112,11 +112,11 @@ https://templatemo.com/tm-559-zay-shop
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <a class="nav-icon position-relative text-decoration-none" href="shopping-cart.php">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                     </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <a class="nav-icon position-relative text-decoration-none" href="account.php">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
                     </a>
@@ -275,10 +275,10 @@ https://templatemo.com/tm-559-zay-shop
                                 </li>
                             </ul>
 
-                            <h6>Specification:</h6>
+                            <!-- <h6>Specification:</h6>
                             <ul class="list-unstyled pb-3">
                                 <li>Lorem ipsum dolor sit</li>
-                            </ul>
+                            </ul> -->
 
                             <form action="shopping-cart.php" method="POST">
                                 <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
@@ -287,7 +287,7 @@ https://templatemo.com/tm-559-zay-shop
                                 <input type="hidden" name="product_price" value="<?php echo $row['product_price']; ?>">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <ul class="list-inline pb-3">
+                                        <!-- <ul class="list-inline pb-3">
                                             <li class="list-inline-item">Size :
                                                 <input type="hidden" name="product-size" id="product-size" value="S">
                                             </li>
@@ -295,7 +295,7 @@ https://templatemo.com/tm-559-zay-shop
                                             <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
                                             <li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
                                             <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
-                                        </ul>
+                                        </ul> -->
                                     </div>
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
